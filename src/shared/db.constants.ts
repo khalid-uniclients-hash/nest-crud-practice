@@ -10,6 +10,7 @@ export enum ENUM_TABLE_NAMES {
   AUTH_STATS = "auth_stats",
   SUPPORTS = "supports",
   ATTACHMENTS = "attachments",
+  SUPPORTS_CHAR_LIMITS = "support_char_limits",
 }
 
 export enum ENUM_SEQUENCE {

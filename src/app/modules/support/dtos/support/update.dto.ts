@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEnum, IsOptional } from "class-validator";
+import { IsEnum, IsNotEmpty, IsNumber, IsOptional } from "class-validator";
 import { StatusType } from "../../enums/support.enum";
 
 export class UpdateSupportDTO {
@@ -10,4 +10,15 @@ export class UpdateSupportDTO {
   })
   @IsEnum(StatusType)
   readonly status!: StatusType;
+}
+
+export class UpdateSupportCharLimitDTO {
+  @ApiProperty({
+    type: Number,
+    required: true,
+    example: 10,
+  })
+  @IsNotEmpty()
+  @IsNumber()
+  readonly charLimit!: number;
 }
