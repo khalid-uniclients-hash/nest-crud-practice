@@ -1,39 +1,22 @@
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from "typeorm";
-import { User } from "../../user/entities/user.entity";
-import { Attachment } from "./attachment.entity";
-import { Comment } from "./comment.entity";
+import { BaseEntity } from "@src/app/base";
+import { ENUM_TABLE_NAMES } from "@src/shared";
+import { Column, Entity } from "typeorm";
+import { StatusType } from "../enums/support.enum";
 
-@Entity("support")
-export class Support {
-  @PrimaryGeneratedColumn("uuid")
-  id: string;
+@Entity(ENUM_TABLE_NAMES.SUPPORTS)
+export class Support extends BaseEntity {
+  public static readonly SEARCH_TERMS: string[] = [];
 
   @Column()
-  message: string;
+  message?: string;
 
-  @Column({ default: "pending" })
-  status: string;
+  @Column({ nullable: true })
+  attachment?: string;
 
-  @ManyToOne(() => User, (user) => user.supports)
-  user: User;
+  @Column({ default: StatusType.PENDING })
+  status?: StatusType;
 
-  @OneToMany(() => Attachment, (attachment) => attachment.support)
-  attachments?: Attachment[];
-
-  @OneToMany(() => Comment, (comment) => comment.support)
-  comments?: Comment[];
-
-  @CreateDateColumn()
-  createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
+  constructor() {
+    super();
+  }
 }

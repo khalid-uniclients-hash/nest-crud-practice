@@ -1,36 +1,54 @@
-import { Controller, Post, Body, Param, Put, Get, Query } from "@nestjs/common";
-import { SupportService } from "../services/support.service";
-import { CreateSupportDTO } from "../dtos/support/create.dto";
-import { UpdateSupportDTO } from "../dtos/support/update.dto";
-import { FilterSupportDTO } from "../dtos/support/filter.dto";
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { SuccessResponse } from "@src/app/types";
+import { CreateSupportDTO } from "../dtos/support/create.dto";
+import { FilterSupportDTO } from "../dtos/support/filter.dto";
+import { UpdateSupportDTO } from "../dtos/support/update.dto";
 import { Support } from "../entities/support.entity";
+import { SupportService } from "../services/support.service";
 
+@ApiTags("Support")
 @Controller("supports")
 export class SupportController {
   RELATIONS = [];
-  constructor(private readonly supportService: SupportService) {}
+  constructor(private readonly service: SupportService) {}
 
   @Get()
-  async findAll(@Query() query: any): Promise<SuccessResponse | Support[]> {
-    return this.supportService.findAllBase(query, {
-      relations: this.RELATIONS,
-    });
+  async findAll(
+    @Query() query: FilterSupportDTO
+  ): Promise<SuccessResponse | Support[]> {
+    return this.service.findAllBase(query, { relations: this.RELATIONS });
+  }
+
+  @Get(":id")
+  async findById(@Param("id") id: string): Promise<Support> {
+    return this.service.findByIdBase(id, { relations: this.RELATIONS });
   }
 
   @Post()
-  async createSupport(@Body() createSupportDto: CreateSupportDTO) {
-    return this.supportService.createSupport(
-      createSupportDto,
-      "03071f11-bedc-4819-8dc2-91ebb0fb256d"
-    );
+  async createOne(@Body() body: CreateSupportDTO): Promise<Support> {
+    return this.service.createOneBase(body);
   }
 
-  @Put(":id/status")
-  async updateStatus(
+  @Patch(":id")
+  async updateOne(
     @Param("id") id: string,
-    @Body() updateSupportStatusDto: UpdateSupportDTO
-  ) {
-    return this.supportService.updateStatus(id, updateSupportStatusDto);
+    @Body() body: UpdateSupportDTO
+  ): Promise<Support> {
+    return this.service.updateOneBase(id, body);
+  }
+
+  @Delete(":id")
+  async deleteOne(@Param("id") id: string): Promise<SuccessResponse> {
+    return this.service.deleteOneBase(id);
   }
 }

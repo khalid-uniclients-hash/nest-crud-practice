@@ -3,8 +3,6 @@ import { ENUM_COLUMN_TYPES, ENUM_TABLE_NAMES } from "@src/shared";
 import { Type } from "class-transformer";
 import { Column, Entity, OneToMany } from "typeorm";
 import { Role } from "../../acl/entities/role.entity";
-import { Comment } from "../../support/entities/comment.entity";
-import { Support } from "../../support/entities/support.entity";
 import { UserRole } from "./userRole.entity";
 
 @Entity(ENUM_TABLE_NAMES.USERS)
@@ -56,12 +54,6 @@ export class User extends BaseEntity {
   userRoles?: UserRole[];
 
   roles?: Role[] = [];
-
-  @OneToMany(() => Support, (support) => support.user)
-  supports?: Support[];
-
-  @OneToMany(() => Comment, (comment) => comment.user)
-  comments?: Comment[];
 
   constructor() {
     super();

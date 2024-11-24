@@ -1,8 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { BaseDTO } from "@src/app/base";
-import { IsNumberString, IsOptional, IsString } from "class-validator";
+import { IsNumberString, IsOptional, IsString, IsUUID } from "class-validator";
 
-export class FilterSupportDTO extends BaseDTO {
+export class FilterSupportDTO {
   @ApiProperty({
     type: Number,
     description: "Limit the number of results",

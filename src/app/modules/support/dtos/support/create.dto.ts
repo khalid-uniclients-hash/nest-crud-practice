@@ -1,19 +1,11 @@
 import { ApiProperty } from "@nestjs/swagger";
-import {
-  IsArray,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-  IsEnum,
-} from "class-validator";
-import { Attachment } from "../../entities/attachment.entity";
+import { IsNotEmpty, IsOptional, IsString } from "class-validator";
 
 export class CreateSupportDTO {
   @ApiProperty({
     type: String,
     required: true,
-    example: "Unable to login to the application",
+    example: "Hello",
   })
   @IsNotEmpty()
   @IsString()
@@ -21,29 +13,10 @@ export class CreateSupportDTO {
 
   @ApiProperty({
     type: String,
-    required: true,
-    example: "user-id-123",
-  })
-  @IsNotEmpty()
-  @IsUUID()
-  readonly userId!: string;
-
-  @ApiProperty({
-    type: String,
-    required: true,
-    example: "pending",
-  })
-  @IsNotEmpty()
-  @IsString()
-  readonly status!: string;
-
-  @ApiProperty({
-    type: [String],
     required: false,
-    example: ["file1.jpg", "file2.mp4"],
+    example: "https://attachment.com/abc.jpg",
   })
   @IsOptional()
-  @IsArray()
-  @IsString({ each: true })
-  readonly attachments?: Attachment[];
+  @IsString()
+  readonly attachment!: string;
 }
