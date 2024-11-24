@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class CreateAttachmentDTO {
   @ApiProperty({
@@ -9,4 +9,13 @@ export class CreateAttachmentDTO {
   })
   @IsString()
   readonly link!: string;
+
+  @ApiProperty({
+    type: String,
+    required: true,
+    example: "support id",
+  })
+  @IsNotEmpty()
+  @IsUUID()
+  readonly support!: any;
 }
