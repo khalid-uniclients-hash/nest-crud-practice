@@ -8,6 +8,7 @@ import { AppService } from "./app.service";
 import { ExceptionFilter } from "./filters";
 import { HelpersModule } from "./helpers/helpers.module";
 import { ResponseInterceptor } from "./interceptors/response.interceptor";
+import { AttachmentModule } from "./modules/attachment/attachment.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { SupportModule } from "./modules/support/support.module";
 import { UserModule } from "./modules/user/user.module";
@@ -24,6 +25,7 @@ const MODULES = [
   AuthModule,
   UserModule,
   SupportModule,
+  AttachmentModule,
 ];
 @Module({
   imports: [...MODULES],

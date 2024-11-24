@@ -9,6 +9,7 @@ export enum ENUM_TABLE_NAMES {
   ROLE_PERMISSIONS = "role_permissions",
   AUTH_STATS = "auth_stats",
   SUPPORTS = "supports",
+  ATTACHMENTS = "attachments",
 }
 
 export enum ENUM_SEQUENCE {
